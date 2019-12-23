@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Area and Circumfrence'],
+          ['Area', {{area}} ],
+          ['Circumfrence', {{circumf}} ],
+        ]);
+
+        var options = {
+          title: 'Area and Circumfrence of Circle',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+
+  	<form method="POST" action="{% url 'circle_add' %}">
+		{% csrf_token %}
+        {{ form.as_p }}
+
+		Enter Radius:<input type="text" name="radius"><br>
+		<input type="submit">
+	</form>
+
+ <a href="{% url 'home' %}" class="to_register">Home</a>
+ <br>
+	Result:
+
+Area: {{area}}<br>
+
+Circumfrence: {{circumf}}
+
+
+    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
